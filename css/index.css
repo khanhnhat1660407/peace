@@ -1,0 +1,57 @@
+#card-post-area{
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    width: 80%;
+}
+
+#avatar-container{
+    height: 200px;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+
+#user-avatar{
+    width: 100%;
+    min-width: 100px;
+    text-align: center;
+    margin: 0 auto;
+}
+
+
+
+#post-index{
+    width: 100%;
+}
+
+#post-area{
+    display: flex;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 20px;
+}
+
+#input-container{
+    width: calc(100% - 200px);
+    padding: 10px 10px 10px 0;
+}
+
+#status{
+    width: 100%;
+    height: 200px;
+    border-top: none;
+    border-bottom: none;
+    border-right: none;
+    border-radius: 0px;
+    resize: none;
+    outline: none;
+    padding: 0 5px 0 15px;
+    font-size: 20px;
+}
+
+#status:focus{
+    border-color: unset;
+    box-shadow: none;
+}
+
