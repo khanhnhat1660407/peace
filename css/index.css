@@ -1,7 +1,7 @@
 .container-welcome{
     width: 100%;
     height: calc(100% - 75px);
-    background-image: url("/peace/image/index-background.png");
+    background-image: url("/image/index-background.png");
     background-repeat: no-repeat;
     background-position: center;
     -webkit-background-size: cover;
