@@ -7,7 +7,7 @@
         
         global $db;
         $post_id             = $_POST['post_id'];
-        $comment_text        = $_POST['comment_text'];
+        $comment_text        = strip_tags($_POST['comment_text']);
         $result              = InsetComment($post_id,$user_id,$comment_text);
         $inserted_id         = $db->lastInsertId();
         $inserted_comment    = getCommentByID($inserted_id);

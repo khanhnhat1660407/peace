@@ -19,9 +19,9 @@
         case 'Bạn bè': $privacyNum = 2;break;
         case 'Chỉ mình tôi': $privacyNum = 3;break;
       }
-      $content = $_POST['status'];
+      $content =  strip_tags($_POST['status']);
       $userId = $currentUser['id'];
-      addPost($userId,$content,$privacyNum);
+      addPost($userId,$content,$privacyNum,null);
       header('Location: index.php');
       exit();
     }
@@ -32,6 +32,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <?php include 'header.php';?>
+<?php include 'modal-upload-image.php';?>
 <?php if(!$currentUser):?>
 <div class="container-welcome">
 
@@ -54,28 +55,26 @@
                 <div class="form-group" id="post-area">
                     <div id="avatar-container">
                         <div id="user-avatar">
-                            <img style="width: 100px;height: 100px; border-radius: 50%;border: #333 solid 2px;" src="uploads/<?php echo $currentUser['id'] ;?>.jpg">
+                            <img style="width: 100px;height: 100px; border-radius: 50%;" src="uploads/<?php echo $currentUser['id'] ;?>.jpg">
                             <p style="font-weight:bold; font-size:20px; font-family:sans-serif;  color:black;"><?php echo $currentUser['username'];?></p>
                         </div>
                     </div>
                     <div id="input-container">
                         <textarea class="form-control" id="status" name ="status" placeholder="Bạn đang nghĩ gì?" Required></textarea>
                     </div>
-                    <textarea style="display:none;" class="getDropdownValue" rows="1" name ="Privacy-value">Mọi người</textarea>
+                    <textarea style="display:none;" class="getDropdownValue" rows="1" name="Privacy-value">Mọi người</textarea>
                 </div>
                 <div style="text-align: right;">
                     <div class="dropdown">
                         <form method="POST">
-                            <button type="button" class="btn btn-info" name="post-image" id="post-image">Đăng ảnh</button>
-                            <input type="file"  name="upload_image" id="upload_image" multiple style="display: none;">
-
+                            <button type="button" class="btn btn-light" name="post-image" id="choose-image-open" data-toggle="modal" data-target="#modal-upload-image"><i class="fa fa-camera" aria-hidden="true"></i></button>
                             <button class="btn btn-secondary dropdown-toggle" style="min-width: 150px;" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                             ><span class="privacy-value">Mọi người</span></button>
                             <button type="submit" class="btn btn-primary" name="post">Đăng</button>
                             <div class="dropdown-menu" id="dropdown-menu-index" type="submit"  aria-labelledby="dropdownMenuButton">
-                                <li><a style="cursor: default;" class="dropdown-item">Mọi người</a></li>
-                                <li><a style="cursor: default;" class="dropdown-item">Bạn bè</a></li>
-                                <li><a style="cursor: default;" class="dropdown-item">Chỉ mình tôi</a></li>
+                                <li><a class="dropdown-item">Mọi người</a></li>
+                                <li><a class="dropdown-item">Bạn bè</a></li>
+                                <li><a class="dropdown-item">Chỉ mình tôi</a></li>
                             </div>
                     </div>
                 </div>
@@ -97,7 +96,14 @@
                         <p class="post-date" ><?php echo $post['createdAt']; ?></p>
                     </div>
                 </div>
-                <p class="card-text"><?php echo $post['content']; ?></p>
+                <div class="post-body">
+                    <p class="card-text"><?php echo $post['content']; ?></p>
+                    <?php if ($post['image']):?>
+                        <div class="post-image-container">
+                            <img src="<?php echo $post['image']; ?>" class="post-image-img" alt="">
+                        </div>
+                    <?php endif; ?>
+                </div>
                 <div class ="post">
                     <div class="post-like-comment">
                         <div class="post-like">
@@ -105,7 +111,7 @@
                                 class="fa fa-thumbs-up like-btn"
                             <?php else: ?>
                                 class="fa fa-thumbs-o-up like-btn"
-                            <?php endif ?>
+                            <?php endif; ?>
                                     data-id="<?php echo $post['id'] ?>">
                             </i>
                             <span class="likes"><?php echo getLikes($post['id']); ?></span><span> lượt thích</span>
@@ -122,7 +128,7 @@
                       id="comment_form_<?php echo $post['id'] ?>" data-id="<?php echo $post['id']; ?>">
                     <div class="comment-area">
                         <input name="post_id" value="<?php echo $post['id']; ?>" hidden>
-                        <input name="comment_text" id="comment_text_<?php echo $post['id'] ?>" class="form-control" ></input>
+                        <input name="comment_text" id="comment_text_<?php echo $post['id'] ?>" class="form-control" >
                         <button name="submit" class="btn btn-primary btn-sm pull-right submit_comment" data-id="<?php echo $post['id']; ?>">Bình luận</button>
                     </div>
                 </form>
@@ -142,16 +148,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- // comment -->
                         <?php endforeach ?>
                     <?php else: ?>
                         <a>Hãy trở thành người đầu tiên bình luận về bài viết này</a>
                     <?php endif ?>
-                </div><!-- comments wrapper -->
-            </div><!-- // all comments -->
-            <!-- end comment3 -->
-
-
+                </div>
+            </div>
         </div>
     <?php endforeach; ?>
 </div>

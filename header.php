@@ -15,20 +15,22 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css"/>
     <link rel="stylesheet" href="css/header.css"/>
+    <link rel="stylesheet" href="css/post.css"/>
     <?php if(!$currentUser): ?>
         <link rel="stylesheet" href="css/index.css"/>
         <?php if($page == 'login'): ?>
             <link rel="stylesheet" href="css/login-page.css"/>
         <?php elseif($page == 'register'): ?>
             <link rel="stylesheet" href="css/register-page.css"/>
+        <?php elseif($page == 'forgot-password'): ?>
+            <link rel="stylesheet" href="css/forgot-password.css"/>
         <?php endif; ?>
     <?php else:?>
         <?php if($page == 'personal'): ?>
           <link rel="stylesheet" href="css/personal-page.css"/>
-          <link rel="stylesheet" href="css/post.css"/>
         <?php elseif($page == 'index'): ?>
-          <link rel="stylesheet" href="css/post.css"/>
           <link rel="stylesheet" href="css/index.css"/>
+          <link rel="stylesheet" href="css/modal-upload-image.css"/>
         <?php endif; ?>
     <?php endif; ?>
 
@@ -61,18 +63,6 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto" id="menu-nav">
           <?php if(!$currentUser): ?>
-<!--          <li class="nav-item --><?php //echo $page == 'index' ? 'active' : '' ?><!--">-->
-<!--            <a class="nav-link --><?php //echo $page == 'index' ? 'active' : '' ?><!--" style="color:black ;font-weight:bold" href="index.php">Trang chủ<span class="sr-only">(current)</span></a>-->
-<!--          </li>-->
-<!--          <li class="nav-item --><?php //echo $page == 'login' ? 'active' : '' ?><!--">-->
-<!--            <a class="nav-link" style="color:black ;font-weight:bold" href="login.php">Đăng nhập</a>-->
-<!--          </li>-->
-<!--          <li  class="nav-item --><?php //echo $page == 'register' ? 'active' : '' ?><!--">-->
-<!--            <a class="nav-link" style="color:black ;font-weight:bold" href="register.php">Đăng ký</a>-->
-<!--          </li>-->
-<!--          <li class="nav-item --><?php //echo $page == 'forgot-password' ? 'active' : '' ?><!--">-->
-<!--            <a class="nav-link" style="color:black ;font-weight:bold" href="forgot-password.php">Quên mật khẩu</a>-->
-<!--          </li>-->
           <?php else: ?>
           <li class="nav-item active">
             
@@ -93,8 +83,9 @@
     <?php
       if(isset($_POST['search-btn']))
       {
-         header('Location: result-search.php?name='.$_POST['search-friend-box']);
-         exit();
+          $keyword = strip_tags($_POST['search-friend-box']);
+          header('Location: result-search.php?name='.$keyword);
+          exit();
       }
     ?>
 </div>

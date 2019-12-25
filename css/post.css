@@ -12,7 +12,22 @@
     display: flex;
 }
 
+.post-image-container{
+    width: 100%;
+    max-width: 100%;
+    max-height: 650px;
+    text-align: center;
+}
 
+.post-image-img{
+    height:auto;
+    max-height: 650px;
+    max-width: 100%;
+}
+
+.post{
+    margin-top: 10px;
+}
 
 .user-post-name{
     color: #385898;
@@ -92,4 +107,17 @@ input[name="comment_text"]{
 
 .user-comment-name:hover{
     text-decoration: none;
+}
+
+.comment.clearfix
+{
+    margin-bottom: 10px;
+}
+
+.comment-content{
+    margin-bottom: 0;
+}
+
+.comment-name {
+    font-weight: bold;
 }

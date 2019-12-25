@@ -74,11 +74,11 @@ function KiemTraTonTaiUser($user)
  }
 
 
-function addPost($userId,$content,$privacyNum)
+function addPost($userId,$content,$privacyNum,$image)
 {
 	GLOBAL $db;
-	$stmt = $db->prepare("INSERT INTO post(userId,content,privacy) VALUES(?,?,?)");
-	$stmt->execute(array($userId,$content,$privacyNum));	
+	$stmt = $db->prepare("INSERT INTO post(userId,content,privacy,image) VALUES(?,?,?,?)");
+	$stmt->execute(array($userId,$content,$privacyNum,$image));
 }
 
 function addPicture($userId,$content,$pictureId)
@@ -147,14 +147,14 @@ function sentEmail($email,$receiver,$subject,$content)
 		$mail->isSMTP();                                      
 		$mail->Host = 'smtp.gmail.com';  
 		$mail->SMTPAuth = true;                               
-		$mail->Username = 'nguyenthiyennhi27101999@gmail.com'; 
-		$mail->Password = '312397713YN';                           
+		$mail->Username = 'khanhnhatclone@gmail.com';
+		$mail->Password = 'chauvankhanhnhat1997';
 		$mail->SMTPSecure = 'tls';                            
 		$mail->Port = 587;                                    
 		
 
 		//Recipients
-		$mail->setFrom('nguyenthiyennhi27101999@gmail.com', 'PEACE');
+		$mail->setFrom('khanhnhatclone@gmail.com', 'PEACE');
 		$mail->addAddress($email,$receiver);     
 		$mail->isHTML(true);
 		$mail->Subject = $subject;

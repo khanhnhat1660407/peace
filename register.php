@@ -32,7 +32,7 @@ ob_start();
                         <input type="password" class="form-control" id="password" name="password" placeholder="Nhập mật khẩu" autocomplete="off" minlength="8" Required>
                     </div>
                     <div class="form-group">
-                        <input type="password" class="form-control" id="password" name="conf-password" placeholder="Nhập lại mật khẩu" minlength="8" autocomplete="off" Required>
+                        <input type="password" class="form-control" id="conf-password" name="conf-password" placeholder="Nhập lại mật khẩu" minlength="8" autocomplete="off" Required>
                     </div>
                     <div class="register-message">
                         <?php
@@ -42,18 +42,18 @@ ob_start();
                             $email = $_POST['email'];
                             $password = $_POST['password'];
                             $conf_password =$_POST['conf-password'];
-                            if($password!=$conf_password)
+                            if($password != $conf_password)
                             {
                                 echo '<p class="message">Mật khẩu xác nhận không đúng!</p>';
                             }
                             else
                             {
-                                $check =0;
+                                $check = 0;
                                 $hashPassword = password_hash($password, PASSWORD_DEFAULT);
 
                                 if(KiemTraTonTaiEmail($email)==true)
                                 {
-                                    echo '<p class="message">Email này đã có tài khoản!<a href="forgotpassword.php"> Quên mật khẩu<a></p>';
+                                    echo '<p class="message">Email này đã có tài khoản!<a href="forgot-password.php"> Quên mật khẩu<a></p>';
                                 }
                                 else if (KiemTraTonTaiUser($username)==true)
                                 {
@@ -64,7 +64,7 @@ ob_start();
                                     $baseURL = explode("register.php",getBaseUrl())[0];
                                     CreateUserNoVerify($username,$email,$hashPassword);
                                     $createId = findUserByEmail($email);
-                                    resizeImage('image/avatar-deafault.jpg', 512, 512, $crop=FALSE,'uploads/'.$createId['id'].'.jpg') ;
+                                    resizeImage('image/avatar-default.jpg', 512, 512, $crop=FALSE,'uploads/'.$createId['id'].'.jpg') ;
                                     $code = randomNumber(6);
                                     $secret= createVerifyEmail($createId['id'],$code);
                                     sentEmail($email,$username,'Xac thuc tai khoan Peace','<p style="font-size: 15px;">Hello,<strong>'.$username.'</strong>!Bạn đã đăng kí tài khoản Peace bằng email này.<br> Vui lòng chọn <a href="' . $baseURL . 'verify-email.php?secret=' . $secret . '&id='.$createId['id'].'">tại đây</a> để hoàn thành quá trình tạo tài khoản<p><br><h3>Mã xác thực: </h3><h2>'.$code.'</h2>');

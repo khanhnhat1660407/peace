@@ -22,7 +22,7 @@
         <div style="text-align: center;">
          <div class="card" style="width: 80%; margin: 0 auto; ">
           <div class="card-body">
-            <img style="width: 200px;height: 200px; border-radius: 50%;border: #003366 solid 5px;" src="uploads/<?php echo $currentUser['id'] ;?>.jpg">
+            <img style="width: 200px;height: 200px; border-radius: 50%;" src="uploads/<?php echo $currentUser['id'] ;?>.jpg">
              <p><h4><?php echo $currentUser['username']; ?></h4></p>
          
            
@@ -101,28 +101,33 @@
                     <p class="post-date" ><?php echo $post['createdAt']; ?></p>
                   </div>
                 </div>
-                <p class="card-text"><?php echo $post['content']; ?></p>
-           <div class ="post">
-                  <div class="post-like-comment">
-                      <div class="post-like">
-                          <i <?php if (userLiked($post['id'])): ?>
-                              class="fa fa-thumbs-up like-btn"
-                          <?php else: ?>
-                              class="fa fa-thumbs-o-up like-btn"
-                          <?php endif ?>
-                                  data-id="<?php echo $post['id'] ?>">
-                          </i>
-                          <span class="likes"><?php echo getLikes($post['id']); ?></span><span> lượt thích</span>
+                <div class="post-body">
+                    <p class="card-text"><?php echo $post['content']; ?></p>
+                    <?php if ($post['image']):?>
+                        <div class="post-image-container">
+                            <img src="<?php echo $post['image']; ?>" class="post-image-img" alt="">
+                        </div>
+                    <?php endif; ?>
+                </div>
+                <div class ="post">
+                      <div class="post-like-comment">
+                          <div class="post-like">
+                              <i <?php if (userLiked($post['id'])): ?>
+                                  class="fa fa-thumbs-up like-btn"
+                              <?php else: ?>
+                                  class="fa fa-thumbs-o-up like-btn"
+                              <?php endif ?>
+                                      data-id="<?php echo $post['id'] ?>">
+                              </i>
+                              <span class="likes"><?php echo getLikes($post['id']); ?></span><span> lượt thích</span>
+                          </div>
+                          <div class="post-comment">
+                              <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                              <span id="comments_count_<?php echo $post['id'] ?>"><?php echo count($comments) ?></span><span> bình luận</span>
+                          </div>
                       </div>
-                      <div class="post-comment">
-                          <i class="fa fa-commenting-o" aria-hidden="true"></i>
-                          <span id="comments_count_<?php echo $post['id'] ?>"><?php echo count($comments) ?></span><span> bình luận</span>
-                      </div>
-                  </div>
-              </div>
-
-                
-                <form class="clearfix" action="personal.php" method="post" 
+                </div>
+                <form class="clearfix" action="personal.php" method="post"
                   id="comment_form_<?php echo $post['id'] ?>" data-id="<?php echo $post['id']; ?>">
                   <div class="comment-area">
                   <input name="post_id" value="<?php echo $post['id']; ?>" hidden>
@@ -157,10 +162,10 @@
                 
             
             </div>
-          </div>    
         <?php endforeach; ?>
-        
   </div>
+
+</div>
   
 </div>
 <?php include 'footer.php'; ?>

@@ -78,7 +78,7 @@ $('#update-avatar').on('click', function() { $('#upload_avatar').click();return 
 </script>
 
  <script>
-  $('#post-image').on('click', function() { 
+  $('#choose-image').on('click', function() {
     $('#upload_image').click();
     return false;
     });
