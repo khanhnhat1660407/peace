@@ -1,6 +1,6 @@
 <?php 
   require_once 'init.php';
-$conn = mysqli_connect('localhost', 'root', 'root', 'peace');
+$conn = mysqli_connect('remotemysql.com', 'nQhrcXzBBL', 'GV65vJDdMj', 'nQhrcXzBBL');
 
 $user_id = $currentUser['id'];
 if (!$conn) {

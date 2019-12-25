@@ -16,12 +16,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css"/>
     <link rel="stylesheet" href="css/header.css"/>
     <?php if(!$currentUser): ?>
+        <link rel="stylesheet" href="css/index.css"/>
         <?php if($page == 'login'): ?>
             <link rel="stylesheet" href="css/login-page.css"/>
         <?php elseif($page == 'register'): ?>
             <link rel="stylesheet" href="css/register-page.css"/>
         <?php endif; ?>
-
     <?php else:?>
         <?php if($page == 'personal'): ?>
           <link rel="stylesheet" href="css/personal-page.css"/>

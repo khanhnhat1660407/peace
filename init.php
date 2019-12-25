@@ -2,7 +2,7 @@
 require_once 'functions.php';
 session_start();
 try {
-    $db = new PDO('mysql:host=localhost;dbname=peace;charset=utf8', 'root', 'root');
+    $db = new PDO('mysql:host=remotemysql.com;dbname=nQhrcXzBBL;charset=utf8', 'nQhrcXzBBL', 'GV65vJDdMj');
 } catch (PDOException $e) {
     echo 'Connection failed: ' . $e->getMessage();
     exit();

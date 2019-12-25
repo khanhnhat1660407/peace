@@ -33,15 +33,16 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <?php include 'header.php';?>
 <?php if(!$currentUser):?>
-<div class="card" style="width: 80% ; margin: 0 auto;">
-  <div class="card-body">
-             <p style="font-weight:bold; font-size:20px; text-align:center; font-family:sans-serif; color:black;">Chào mừng đến với Peace. Vui lòng đăng nhập để tiếp tục</p>
-             <div style="text-align: center;">
-                <a class="btn btn-dark" href="login.php" role="button">Đăng nhập</a>
-                <a class="btn btn-dark" href="register.php" role="button">Đăng ký</a>
-            </div>
-  </div>
+<div class="container-welcome">
+
+    <div class="welcome-message">
+        <p id="message">Chào mừng bạn đến với</p>
+        <p id="branch">P E A C E</p>
+    </div>
+    <a class="btn btn-dark" href="login.php" role="button">Đăng nhập</a>
+    <a class="btn btn-dark" href="register.php" role="button">Đăng ký</a>
 </div>
+
 <?php else:?>
 
 <div class="container">

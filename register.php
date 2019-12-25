@@ -13,13 +13,13 @@ ob_start();
 
 <?php include 'header.php'; ?>
 
-<div class="login-container">
-    <div class="login-body">
+<div class="register-container">
+    <div class="register-body">
         <div class="left-side">
             <img id="login-img" src="image/register-page.gif" alt="">
         </div>
         <div class="right-side">
-            <h1 ">ĐĂNG KÝ</h1>
+            <h1>ĐĂNG KÝ</h1>
             <div class="login-form">
                 <form method="POST">
                     <div class="form-group">
@@ -34,46 +34,48 @@ ob_start();
                     <div class="form-group">
                         <input type="password" class="form-control" id="password" name="conf-password" placeholder="Nhập lại mật khẩu" minlength="8" autocomplete="off" Required>
                     </div>
-
-                    <?php
-                    if(isset($_POST['submit']))
-                    {
-                        $username = $_POST['user'];
-                        $email = $_POST['email'];
-                        $password = $_POST['password'];
-                        $conf_password =$_POST['conf-password'];
-                        if($password!=$conf_password)
+                    <div class="register-message">
+                        <?php
+                        if(isset($_POST['submit']))
                         {
-                            echo '<div style="text-align: center;"><p style="color:#f25119;">Mật khẩu xác nhận không đúng!</p></div>';
-                        }
-                        else
-                        {
-                            $check =0;
-                            $hashPassword = password_hash($password, PASSWORD_DEFAULT);
-
-                            if(KiemTraTonTaiEmail($email)==true)
+                            $username = $_POST['user'];
+                            $email = $_POST['email'];
+                            $password = $_POST['password'];
+                            $conf_password =$_POST['conf-password'];
+                            if($password!=$conf_password)
                             {
-                                echo '<div style="text-align: center;"><p style="color:#f25119;">Email này đã có tài khoản!<a href="forgotpassword.php"> Quên mật khẩu<a></p></div>';
-                            }
-                            else if (KiemTraTonTaiUser($username)==true)
-                            {
-                                echo '<div style="text-align: center;"><p style="color:#f25119;">Tên người dùng này đã được sử dụng! Vui lòng chọn tên khác</p></div>';
+                                echo '<p class="message">Mật khẩu xác nhận không đúng!</p>';
                             }
                             else
                             {
-                                CreateUserNoVerify($username,$email,$hashPassword);
-                                $createId = findUserByEmail($email);
-                                resizeImage('image/avatar-navbar.jpg', 512, 512, $crop=FALSE,'uploads/'.$createId['id'].'.jpg') ;
-                                $code = randomNumber(6);
-                                $secret= createVerifyEmail($createId['id'],$code);
-                                sentEmail($email,$username,'Xac thuc tai khoan Peace','<p style="font-size: 15px;">Hello,<strong>'.$username.'</strong>!Bạn đã đăng kí tài khoản Peace bằng email này.<br> Vui lòng chọn <a href="http://localhost:8080/peace/verify-email.php?secret=' . $secret . '&id='.$createId['id'].'">tại đây</a> để hoàn thành quá trình tạo tài khoản<p><br><h3>Mã xác thực: </h3><h2>'.$code.'</h2>');
-                                header('Location: verify-email.php?secret='.$secret.'&id='.$createId['id'].'');
+                                $check =0;
+                                $hashPassword = password_hash($password, PASSWORD_DEFAULT);
+
+                                if(KiemTraTonTaiEmail($email)==true)
+                                {
+                                    echo '<p class="message">Email này đã có tài khoản!<a href="forgotpassword.php"> Quên mật khẩu<a></p>';
+                                }
+                                else if (KiemTraTonTaiUser($username)==true)
+                                {
+                                    echo '<p class="message">Tên người dùng này đã được sử dụng!</p>';
+                                }
+                                else
+                                {
+                                    $baseURL = explode("register.php",getBaseUrl())[0];
+                                    CreateUserNoVerify($username,$email,$hashPassword);
+                                    $createId = findUserByEmail($email);
+                                    resizeImage('image/avatar-deafault.jpg', 512, 512, $crop=FALSE,'uploads/'.$createId['id'].'.jpg') ;
+                                    $code = randomNumber(6);
+                                    $secret= createVerifyEmail($createId['id'],$code);
+                                    sentEmail($email,$username,'Xac thuc tai khoan Peace','<p style="font-size: 15px;">Hello,<strong>'.$username.'</strong>!Bạn đã đăng kí tài khoản Peace bằng email này.<br> Vui lòng chọn <a href="' . $baseURL . 'verify-email.php?secret=' . $secret . '&id='.$createId['id'].'">tại đây</a> để hoàn thành quá trình tạo tài khoản<p><br><h3>Mã xác thực: </h3><h2>'.$code.'</h2>');
+                                    header('Location: verify-email.php?secret='.$secret.'&id='.$createId['id'].'');
+                                }
                             }
                         }
-                    }
-                    ?>
-                    <div style="text-align: center;">
-                        <button type="submit" class="btn btn-dark" name="submit">Đăng ký</button>
+                        ?>
+                    </div>
+                    <div class="button-register">
+                        <button type="submit" id="register-submit" class="btn btn-dark" name="submit">Đăng ký</button>
                     </div>
                 </form>
             </div>

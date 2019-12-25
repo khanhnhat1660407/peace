@@ -69,7 +69,7 @@ if($currentUser)
                     ?>
                     </div>
                     <div class="button-login">
-                        <button type="submit" name="log-submit" id="log-submit" class="btn btn-dark">Đăng nhập</button>
+                        <button type="submit" name="login-submit" id="log-submit" class="btn btn-dark">Đăng nhập</button>
                     </div>
 
                 </form>
