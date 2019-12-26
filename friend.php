@@ -8,14 +8,16 @@
     header('Location: index.php');
     exit();
   }
-  if($currentUser['id']==$user['id'] ) 
+  if($currentUser['id'] == $user['id'] )
   {
     header('Location: personal.php');
     exit();
   }
+
   $relationship = findRelationship($currentUser['id'], $user['id']);
   $isFriend = count($relationship) === 2;
   $isStranger = count($relationship) === 0;
+
   if(count($relationship) == 1)
   {
       $isRequesting = $relationship[0]['user1Id'] === $currentUser['id'];
@@ -29,6 +31,7 @@
   {
       removeRelationship($currentUser['id'],$user['id']);
   }
-   header('Location: profile.php?id='.$user['id']);
-    exit();
+
+  header('Location: profile.php?id=' . $user['id']);
+  exit();
 ?>

@@ -1,7 +1,8 @@
 <?php 
   require_once 'init.php';
-$conn = mysqli_connect('remotemysql.com', 'nQhrcXzBBL', 'GV65vJDdMj', 'nQhrcXzBBL');
-//$conn = mysqli_connect('localhost', 'root', 'root', 'peace');
+$config = include('config.php');
+$database = $config['database'];
+$conn = mysqli_connect($database['host'], $database['user'], $database['pass'], $database['name']);
 
 $user_id = $currentUser['id'];
 if (!$conn) {

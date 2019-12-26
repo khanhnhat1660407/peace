@@ -212,7 +212,7 @@ INSERT INTO `rating_info` (`post_id`, `user_id`, `rating_action`) VALUES
 CREATE TABLE `relationship` (
   `user1Id` int(11) NOT NULL,
   `user2Id` int(11) NOT NULL,
-  `createdAt` datetime NOT NULL
+  `createdAt` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
