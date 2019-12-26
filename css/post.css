@@ -121,3 +121,15 @@ input[name="comment_text"]{
 .comment-name {
     font-weight: bold;
 }
+
+.user-name{
+    color: #385898;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.user-name:hover{
+    text-decoration: none;
+}

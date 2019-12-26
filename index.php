@@ -128,7 +128,7 @@
                       id="comment_form_<?php echo $post['id'] ?>" data-id="<?php echo $post['id']; ?>">
                     <div class="comment-area">
                         <input name="post_id" value="<?php echo $post['id']; ?>" hidden>
-                        <input name="comment_text" id="comment_text_<?php echo $post['id'] ?>" class="form-control" >
+                        <input name="comment_text" id="comment_text_<?php echo $post['id'] ?>" autocomplete="off" class="form-control" >
                         <button name="submit" class="btn btn-primary btn-sm pull-right submit_comment" data-id="<?php echo $post['id']; ?>">Bình luận</button>
                     </div>
                 </form>

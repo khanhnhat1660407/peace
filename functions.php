@@ -510,6 +510,18 @@ function fetch_user_chat_history($from_user_id, $to_user_id, $db)
 	return $output;
 }
 
+function fetch_user_notification($userID, $type)
+{
+    GLOBAL $db;
+    $query = "
+	SELECT * FROM notification WHERE userId = ".$userID." and `type`= ".$type."
+	ORDER  BY createAt DESC";
+    $statement = $db->prepare($query);
+    $statement->execute();
+    $result = $statement->fetchAll();
+    return $result;
+}
+
 function get_user_name($user_id, $db)
 {
 	$query = "SELECT username FROM login WHERE user_id = '$user_id'";
@@ -666,4 +678,24 @@ function getPageTitle($page,$userId){
   }
   return $title;
 }
+
+function addNotification($receiver, $type, $code, $creator, $content, $collect_link)
+{
+
+    GLOBAL $db;
+    $stmt = $db->prepare('INSERT INTO notification (userId,type,code,creator,content,collection_link) VALUES(?,?,?,?,?,?)');
+    $stmt->execute(array($receiver, $type, $code, $creator, $content, $collect_link));
+}
+
+
+function removeNotification($receiver, $type, $code, $creator)
+{
+
+    GLOBAL $db;
+    $stmt = $db->prepare('DELETE FROM notification WHERE userId = ? and type = ? and code = ? and creator = ?');
+    $stmt->execute(array($receiver, $type, $code, $creator));
+}
+
+
+
 ob_flush();

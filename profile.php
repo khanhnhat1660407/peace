@@ -41,9 +41,11 @@ $posts = findAllPostOfUserVisiting($user['id'], $isFriend);
     <div class="container" style="margin-top: 10%;">
         <div class="card" style="width: 80%; margin: 0 auto; text-align:center;">
             <div class="card-body">
-                <img style="width: 150px;height: 150px; border-radius: 50%;border: #003366 solid 5px;"
+                <img style="width: 150px;height: 150px; border-radius: 50%;"
                      src="uploads/<?php echo $user['id']; ?>.jpg">
-                <p><h4><?php echo $user['username']; ?></h4></p>
+                <p class="user-post-name" href="profile.php?id=<?php echo $user['id']; ?>">
+                    <h4 class="user-name"><?php echo $user['username']; ?></h4>
+                </p>
                 <?php if ($mutualFriends != 0): ?>
                     <p><?php echo $mutualFriends; ?> bạn chung</p>
                 <?php endif; ?>
@@ -110,7 +112,7 @@ $posts = findAllPostOfUserVisiting($user['id'], $isFriend);
                           id="comment_form_<?php echo $post['id'] ?>" data-id="<?php echo $post['id']; ?>">
                         <div class="comment-area">
                             <input name="post_id" value="<?php echo $post['id']; ?>" hidden>
-                            <input name="comment_text" id="comment_text_<?php echo $post['id'] ?>" class="form-control">
+                            <input name="comment_text" id="comment_text_<?php echo $post['id'] ?>" autocomplete="off" class="form-control">
                             <button name="submit" class="btn btn-primary btn-sm pull-right submit_comment"
                                     data-id="<?php echo $post['id']; ?>">Bình luận
                             </button>

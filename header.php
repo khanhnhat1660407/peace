@@ -64,12 +64,48 @@
         <ul class="navbar-nav mr-auto" id="menu-nav">
           <?php if(!$currentUser): ?>
           <?php else: ?>
+          <?php
+                $newMessage = fetch_user_notification($currentUser['id'], 1);
+                $countNewMessage = count($newMessage);
+                $notifications = fetch_user_notification($currentUser['id'], 2);
+                $countNotification = count($notifications);
+              ?>
           <li class="nav-item active">
             
             <a class="nav-link" title="Trang cá nhân" href="personal.php"><i class="fa fa-user-o" aria-hidden="true"></i></a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" title="Tin nhắn" style="color:black ;font-weight:bold" href="messenger.php"><i class="fa fa-commenting-o" aria-hidden="true"></i></a>
+          <li class="nav-item" style="position: relative">
+            <a class="nav-link" title="Tin nhắn" style="color:black ;font-weight:bold" href="messenger.php">
+                <i class="fa fa-commenting-o" aria-hidden="true"></i>
+                <?php if($countNewMessage != 0): ?>
+                    <span class="badge"><?php echo $countNewMessage?></span>
+                <?php endif; ?>
+            </a>
+          </li>
+          <li class="nav-item" style="position: relative">
+              <div class="dropdown">
+                  <div class="nav-link" title="Thông báo" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:black ;font-weight:bold;" href="#">
+                      <i class="fa fa-bell-o" aria-hidden="true"></i>
+                      <?php if($countNotification != 0): ?>
+                          <span class="badge"><?php echo $countNotification?></span>
+                      <?php endif; ?>
+                  </div>
+                  <?php if($countNotification != 0): ?>
+                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                          <?php foreach ($notifications as $noti ) : ?>
+                            <div class="dropdown-menu-items" onclick="location.href='<?php echo $noti['collection_link'];?>';">
+                                <div class="dropdown-menu-items-left">
+                                    <img style="width: 40px;height: 40px; border-radius: 50%;" src="uploads/<?php echo $noti['creator'];?>.jpg">
+                                </div>
+                                <div class="dropdown-menu-items-right">
+                                    <p class="noti-content"><?= $noti['content']?></p>
+                                </div>
+
+                            </div>
+                          <?php endforeach; ?>
+                      </div>
+                  <?php endif; ?>
+              </div>
           </li>
           <li class="nav-item">
             <a class="nav-link" title="Đăng xuất" style="color:black ;font-weight:bold" href="logout.php"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
