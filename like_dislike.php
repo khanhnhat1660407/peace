@@ -11,22 +11,31 @@ if (!$conn) {
 }
 if (isset($_POST['action'])) {
   $post_id = $_POST['post_id'];
+  $user_post_id= findUserByPostId($post_id)[0]["userId"];
   $action = $_POST['action'];
   switch ($action) {
-  	case 'like':
-         $sql="INSERT INTO rating_info (user_id, post_id, rating_action) 
+  	case 'like':{
+        $sql="INSERT INTO rating_info (user_id, post_id, rating_action) 
          	   VALUES ($user_id, $post_id, 'like') 
          	   ON DUPLICATE KEY UPDATE rating_action='like'";
-         break;
+         addNotification($user_post_id,2,'like',$currentUser['id'],$currentUser['username'].' đã thích bài viết của bạn', '#');
+
+    }
+
+        break;
   	case 'dislike':
           $sql="INSERT INTO rating_info (user_id, post_id, rating_action) 
                VALUES ($user_id, $post_id, 'dislike') 
          	   ON DUPLICATE KEY UPDATE rating_action='dislike'";
          break;
   	case 'unlike':
-	      $sql="DELETE FROM rating_info WHERE user_id=$user_id AND post_id=$post_id";
-	      break;
-  	case 'undislike':
+        {
+            $sql="DELETE FROM rating_info WHERE user_id=$user_id AND post_id=$post_id";
+        removeNotification($user_post_id,2,'like', $currentUser['id']);
+        }
+
+        break;
+      case 'undislike':
       	  $sql="DELETE FROM rating_info WHERE user_id=$user_id AND post_id=$post_id";
       break;
   	default:

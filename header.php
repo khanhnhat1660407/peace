@@ -31,6 +31,22 @@
         <?php elseif($page == 'index'): ?>
           <link rel="stylesheet" href="css/index.css"/>
           <link rel="stylesheet" href="css/modal-upload-image.css"/>
+        <?php elseif($page == 'messenger'): ?>
+        <script async='async' src='//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js'></script>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({
+                google_ad_client: "ca-pub-4529508631166774",
+                enable_page_level_ads: true
+            });
+        </script>
+        <title>Messenger</title>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="https://cdn.rawgit.com/mervick/emojionearea/master/dist/emojionearea.min.css">
+    <link rel="stylesheet" href="css/message.css"/>
+        <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="https://cdn.rawgit.com/mervick/emojionearea/master/dist/emojionearea.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.js"></script>
         <?php endif; ?>
     <?php endif; ?>
 

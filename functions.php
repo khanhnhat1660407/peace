@@ -98,6 +98,16 @@ function findAllPost()
 	
 }
 
+function findUserByPostId($postId)
+{
+    GLOBAL $db;
+    $stmt = $db->prepare('SELECT userId FROM post WHERE id = '.$postId );
+    $stmt->execute();
+    $userID = $stmt->fetchALL(PDO::FETCH_ASSOC);
+    return $userID;
+}
+
+
 
 function randomString($length)
 {
@@ -470,7 +480,7 @@ function fetch_user_chat_history($from_user_id, $to_user_id, $db)
 	AND to_user_id = '".$to_user_id."') 
 	OR (from_user_id = '".$to_user_id."' 
 	AND to_user_id = '".$from_user_id."') 
-	ORDER BY timestamp DESC
+	ORDER BY timestamp ASC
 	";
 	$statement = $db->prepare($query);
 	$statement->execute();
@@ -481,21 +491,23 @@ function fetch_user_chat_history($from_user_id, $to_user_id, $db)
 		$user_name = '';
 		if($row["from_user_id"] == $from_user_id)
 		{
-			$user_name = '<b class="text-success">You</b>';
+            $output .= '<li class="message-list-li">
+                            <span class="message-list message-from-me">
+                                <p class="message-list-content">'.$row["chat_message"].'</p>
+                            </span>
+                        </li>
+                        ';
 		}
 		else
 		{
-			$user_name = '<b class="text-danger">'.get_user_name($row['from_user_id'], $db).'</b>';
+            $output .= '<li class="message-list-li">
+                            <span class="message-list message-from-friend">
+                                <p class="message-list-content">'.$row["chat_message"].'</p>
+                            </span>
+                        </li>
+                        ';
 		}
-		$output .= '
-		<li style="border-bottom:1px dotted #ccc">
-			<p>'.$user_name.' - '.$row["chat_message"].'
-				<div align="right">
-					- <small><em>'.$row['timestamp'].'</em></small>
-				</div>
-			</p>
-		</li>
-		';
+
 	}
 	$output .= '</ul>';
 	$query = "
@@ -524,7 +536,7 @@ function fetch_user_notification($userID, $type)
 
 function get_user_name($user_id, $db)
 {
-	$query = "SELECT username FROM login WHERE user_id = '$user_id'";
+	$query = "SELECT username FROM users WHERE id = ". $user_id;
 	$statement = $db->prepare($query);
 	$statement->execute();
 	$result = $statement->fetchAll();
