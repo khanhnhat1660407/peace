@@ -1,10 +1,11 @@
 <?php 
   require_once 'init.php';
-$config = include('config.php');
+$config   = include('config.php');
 $database = $config['database'];
-$conn = mysqli_connect($database['host'], $database['user'], $database['pass'], $database['name']);
+$conn     = mysqli_connect($database['host'], $database['user'], $database['pass'], $database['name']);
+$user_id  = $currentUser['id'];
 
-$user_id = $currentUser['id'];
+
 if (!$conn) {
   die("Error connecting to database: " . mysqli_connect_error($conn));
   exit();
@@ -12,14 +13,17 @@ if (!$conn) {
 if (isset($_POST['action'])) {
   $post_id = $_POST['post_id'];
   $user_post_id= findUserByPostId($post_id)[0]["userId"];
+  $isOwner  = $currentUser['id'] == $user_post_id;
   $action = $_POST['action'];
   switch ($action) {
   	case 'like':{
         $sql="INSERT INTO rating_info (user_id, post_id, rating_action) 
          	   VALUES ($user_id, $post_id, 'like') 
          	   ON DUPLICATE KEY UPDATE rating_action='like'";
-         addNotification($user_post_id,2,'like',$currentUser['id'],$currentUser['username'].' đã thích bài viết của bạn', '#');
-
+        if(!$isOwner)
+        {
+            addNotification($user_post_id,2,'like',$currentUser['id'],$currentUser['username'].' đã thích bài viết của bạn', '#');
+        }
     }
 
         break;
@@ -31,7 +35,9 @@ if (isset($_POST['action'])) {
   	case 'unlike':
         {
             $sql="DELETE FROM rating_info WHERE user_id=$user_id AND post_id=$post_id";
-        removeNotification($user_post_id,2,'like', $currentUser['id']);
+            if(!$isOwner) {
+                removeNotification($user_post_id, 2, 'like', $currentUser['id']);
+            }
         }
 
         break;

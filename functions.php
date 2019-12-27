@@ -708,6 +708,13 @@ function removeNotification($receiver, $type, $code, $creator)
     $stmt->execute(array($receiver, $type, $code, $creator));
 }
 
-
+function findPostById($id)
+{
+    GLOBAL $db;
+    $stmt = $db->prepare('SELECT * FROM post WHERE id = ? LIMIT 1');
+    $stmt->execute(array($id));
+    $user =  $stmt->fetch(PDO::FETCH_ASSOC);
+    return $user;
+}
 
 ob_flush();
