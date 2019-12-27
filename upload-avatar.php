@@ -10,6 +10,7 @@ if(isset($_POST["image"]))
 	$imageName = $currentUser['id'] . '.jpg';
 	file_put_contents($imageName, $data);
 	rename($imageName, 'uploads/'.$imageName);
+	addPost($currentUser['id'],$currentUser['username']. ' đã thay đổi hình đại diện', 1,'uploads/'.$imageName);
 	echo '<img src="uploads/'.$imageName.'"/>';
 
 }

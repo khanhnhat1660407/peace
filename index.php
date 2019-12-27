@@ -56,7 +56,7 @@
                     <div id="avatar-container">
                         <div id="user-avatar">
                             <img style="width: 100px;height: 100px; border-radius: 50%;" src="uploads/<?php echo $currentUser['id'] ;?>.jpg">
-                            <p style="font-weight:bold; font-size:20px; font-family:sans-serif;  color:black;"><?php echo $currentUser['username'];?></p>
+                            <p><a id="user-name-info" href="personal.php"><?php echo $currentUser['username'];?></a></p>
                         </div>
                     </div>
                     <div id="input-container">

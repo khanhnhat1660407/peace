@@ -1,3 +1,11 @@
+.user-name {
+    color: #385898;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: bold;
+}
+
 #update-avatar{
     height: 50px;
     width: 50px;
