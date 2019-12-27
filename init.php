@@ -21,6 +21,3 @@ try {
         $currentID = $_SESSION['userId'];
      }
  }
-
-
- $baseURL = $baseUrl = explode("init.php",getBaseUrl())[0];

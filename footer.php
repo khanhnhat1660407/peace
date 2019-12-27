@@ -97,7 +97,7 @@ $('#about-btn').on('click', function() {
     console.log('click');
      $('#all-post').hide();
      $('#friends-of-user').hide();
-    $('#about-user').html('<div class="card" style="width: 80%; margin: 0 auto; "><div class="card-body"><p>Tên người dùng: <h4><?php echo $currentUser['username']; ?></h4></p><p>Email: <h4><?php echo $currentUser['email']; ?></h4></p></div></div>');
+    $('#about-user').show();
     return false;
 });
 
@@ -113,7 +113,7 @@ $('#friendlist-btn').on('click', function() {
     console.log('click');
     $('#all-post').hide();
     $('#about-user').hide();
-    $('#friends-of-user').html('<?php foreach ($friends as $friend ) : ?><?php $friendInfo = findUserById($friend);?><?php if($friendInfo['id'] != $currentUser['id']) :?><div class="card" style="width: 80%; margin: 0 auto; "><div class="card-body"><h5><a href ="profile.php?id=<?php echo $friendInfo['id'];?>" ><img style="width: 50px;height: 50px; border-radius: 50%;" src="uploads/<?php echo $friendInfo['id'];?>.jpg"><?php echo $friendInfo['username']; ?></a></h5><?php $mutualFriends = countMutualFriend($currentUser['id'],$friendInfo['id']); ?><?php if($mutualFriends !=0) :?><p><?php echo $mutualFriends;?> bạn chung</p><?php endif; ?></div></div><?php endif; ?><?php endforeach; ?>');
+    $('#friends-of-user').show();
     return false;
 });
 });

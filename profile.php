@@ -28,18 +28,13 @@ $posts = findAllPostOfUserVisiting($user['id'], $isFriend);
 
 <?php include 'header.php'; ?>
 <?php if (empty($user)): ?>
-    <div class="container" style="margin-top: 10%;">
-        <div class="row">
-            <div class="card" style="width: 80%; margin: 0 auto; text-align:center;">
-                <div class="card-body">
-                    <h3>Trang mà bạn yêu cầu không tìm thấy!</h3>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php
+    header('Location: error-page.php');
+    exit();
+    ?>
 <?php else: ?>
     <div class="container" style="margin-top: 10%;">
-        <div class="card" style="width: 80%; margin: 0 auto; text-align:center;">
+        <div class="card" style="width: 80%; border-radius: 20px; margin: 0 auto; text-align:center;">
             <div class="card-body">
                 <img style="width: 150px;height: 150px; border-radius: 50%;"
                      src="uploads/<?php echo $user['id']; ?>.jpg">

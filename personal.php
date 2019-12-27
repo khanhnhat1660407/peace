@@ -20,36 +20,21 @@
 <?php include 'header.php'; ?>
     <div class="container" style="margin-top: 10%;">
         <div style="text-align: center;">
-         <div class="card" style="width: 80%; margin: 0 auto; ">
+         <div class="card" style="width: 80%; margin: 0 auto; border-radius: 20px ">
           <div class="card-body">
-            <img style="width: 200px;height: 200px; border-radius: 50%;" src="uploads/<?php echo $currentUser['id'] ;?>.jpg">
-             <p><h4><?php echo $currentUser['username']; ?></h4></p>
-         
-           
-            <div>
-              <form method="POST">
-                <!-- <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#popup">Cập nhật ảnh đại diện</button>               -->
-                <button type="submit" class="btn btn-white" data-toggle="modal" name="update-avatar" id="update-avatar">Cập nhật ảnh đại diện</button>
-                <input type="file"  name="upload_avatar" id="upload_avatar" multiple style="display: none;">
-              </form>
-            </div>
+              <div id="user-info-avatar">
+                  <img style="width: 200px;height: 200px; border-radius: 50%;" src="uploads/<?php echo $currentUser['id'] ;?>.jpg">
+                  <p><h4><?php echo $currentUser['username']; ?></h4></p>
+                  <form method="POST" id="form-update-avatar">
+                      <button type="submit" title="Cập nhật ảnh đại diện" class="btn btn-white" data-toggle="modal" name="update-avatar" id="update-avatar"><i class="fa fa-camera" aria-hidden="true"></i></button>
+                      <input type="file"  name="upload_avatar" id="upload_avatar" multiple style="display: none;">
+                  </form>
+              </div>
           </div>
-          <div class="card" >
-            <form method="POST">
-            
-            <div class="row">
-              <div class="col-sm">
-                <button type="button" class="btn btn-link"name="timeline-btn" id="timeline-btn" style=" text-decoration: none">Dòng thời gian</button>
-              </div>
-              <div class="col-sm">
-                <button type="button" class="btn btn-link" name="about-btn" id="about-btn" style=" text-decoration: none;">Thông tin cá nhân</button>
-              </div>
-              <div class="col-sm">
-                <button type="button" class="btn btn-link" name="friendlist-btn" id="friendlist-btn" style=" text-decoration: none;">Bạn bè</button>
-              </div>
-            
-            </form>
-          </div>
+          <div class="card" id="navigation">
+                <button type="button" class="button-navigation"name="timeline-btn" id="timeline-btn" style=" text-decoration: none">Dòng thời gian</button>
+                <button type="button" class="button-navigation" name="about-btn" id="about-btn" style=" text-decoration: none;">Thông tin cá nhân</button>
+                <button type="button" class="button-navigation" name="friendlist-btn" id="friendlist-btn" style=" text-decoration: none;">Bạn bè</button>
          </div>
         </div>     
       </div>
@@ -83,8 +68,33 @@
 
 
 <div class="container" id="personal-main">
-  <div id="about-user"></div>
-  <div id="friends-of-user"></div>
+  <div id="about-user" style="display: none;">
+      <div class="card" id="about-user-card">
+          <div class="card-body">
+              <p>Tên người dùng: <h4><?php echo $currentUser['username']; ?></h4></p>
+              <p>Email: <h4><?php echo $currentUser['email']; ?></h4></p>
+          </div>
+      </div>
+  </div>
+  <div id="friends-of-user" style="display: none;">
+      <?php foreach ($friends as $friend ) : ?>
+          <?php $friendInfo = findUserById($friend);?>
+          <?php if($friendInfo['id'] != $currentUser['id']) :?>
+              <div class="card list-friend-items">
+                  <div class="card-body"><h5>
+                          <a href ="profile.php?id=<?php echo $friendInfo['id'];?>" >
+                              <img style="width: 50px;height: 50px; border-radius: 50%;" src="uploads/<?php echo $friendInfo['id'];?>.jpg">
+                              <?php echo $friendInfo['username']; ?>
+                          </a>
+                      </h5><?php $mutualFriends = countMutualFriend($currentUser['id'],$friendInfo['id']); ?>
+                      <?php if($mutualFriends !=0) :?>
+                          <p><?php echo $mutualFriends;?> bạn chung</p>
+                      <?php endif; ?>
+                  </div>
+              </div>
+          <?php endif; ?>
+      <?php endforeach; ?>
+  </div>
   <div id="all-post">
     <?php foreach ($posts as $post ) : ?>
         <?php $comments=getAllCommentOfPost($post['id']);?>

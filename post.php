@@ -18,17 +18,12 @@ $isAllow = $post['privacy'] == 3 ? false : $isFriend ? true : $currentUser['id']
 ?>
 <?php include 'header.php'; ?>
 <?php if (empty($post) || !$isAllow): ?>
-    <div class="container" style="margin-top: 10%;">
-        <div class="row">
-            <div class="card" style="width: 80%; margin: 0 auto; text-align:center;">
-                <div class="card-body">
-                    <h3>Trang mà bạn yêu cầu không tìm thấy!</h3>
-                </div>
-            </div>
-        </div>
-    </div>
+    <?php
+        header('Location: error-page.php');
+        exit();
+    ?>
 <?php else: ?>
-<div class="container" style="margin-top: 10%;">
+<div class="container" style="margin-top: 20px;">
     <?php $comments = getAllCommentOfPost($post['id']); ?>
     <div class="card post" style="width: 80%;">
         <div class="card-body">
